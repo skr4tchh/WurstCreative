@@ -63,7 +63,12 @@ public class WurstCreative extends JavaPlugin {
         );
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             Commands registrar = event.registrar();
-            commands.stream().map(AbstractCommand::getInstance).forEach(registrar::register);
+            for (AbstractCommand command : commands) {
+                registrar.register(command.getInstance());
+                for (var aliasNode : command.getAliases()) {
+                    registrar.register(aliasNode);
+                }
+            }
         });
     }
 

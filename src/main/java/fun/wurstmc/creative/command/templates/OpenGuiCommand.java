@@ -13,8 +13,8 @@ public abstract class OpenGuiCommand extends AbstractCommand {
 
     private final Function<Player, Gui> guiFactory;
 
-    protected OpenGuiCommand(String name, Function<Player, Gui> guiFactory) {
-        super(name);
+    protected OpenGuiCommand(String name, Function<Player, Gui> guiFactory, String... aliases) {
+        super(name, aliases);
         this.guiFactory = guiFactory;
     }
 

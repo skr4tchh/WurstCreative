@@ -17,10 +17,22 @@ public abstract class AbstractCommand {
 
     private final LiteralCommandNode<CommandSourceStack> instance;
 
-    protected AbstractCommand(String name) {
+    private final List<LiteralCommandNode<CommandSourceStack>> aliases = new ArrayList<>();
+
+    protected AbstractCommand(String name, String... aliases) {
         LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(name);
         init(builder);
         this.instance = builder.build();
+
+        if (aliases != null) {
+            for (String alias : aliases) {
+                LiteralCommandNode<CommandSourceStack> aliasNode = Commands.literal(alias)
+                        .requires(this.instance.getRequirement())
+                        .redirect(this.instance)
+                        .build();
+                this.aliases.add(aliasNode);
+            }
+        }
     }
 
     protected abstract void init(LiteralArgumentBuilder<CommandSourceStack> builder);

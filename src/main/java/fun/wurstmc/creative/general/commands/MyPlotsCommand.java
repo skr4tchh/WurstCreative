@@ -6,7 +6,7 @@ import fun.wurstmc.creative.general.guis.MyPlotsGui;
 public class MyPlotsCommand extends OpenGuiCommand {
 
     public MyPlotsCommand() {
-        super("myplots", MyPlotsGui::new);
+        super("myplots", MyPlotsGui::new, "myworlds");
     }
 
 }
